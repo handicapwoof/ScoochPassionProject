@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Scooch.Interfaces;
 using Scooch.Models;
+using Scooch.Repositories;
 
 namespace Scooch
 {
@@ -40,9 +42,7 @@ namespace Scooch
                 services.AddDbContext<ScoochDBContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("ScoochDBConnection")));
 
-            //var connection = Configuration.GetConnectionString("ScoochDBConnection");
-            //services.AddDbContext<ScoochDBContext>(options => options.UseSqlServer(connection));
-
+            services.AddScoped<IEventRepo, EventRepo>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

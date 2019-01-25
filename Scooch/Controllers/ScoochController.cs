@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Scooch.Interfaces;
 using Scooch.Models;
 using Scooch.Repositories;
 
@@ -12,20 +13,25 @@ namespace Scooch.Controllers
     public class ScoochController : Controller
     {
         private ScoochDBContext db;
-        public ScoochController(ScoochDBContext db)
+        private IEventRepo repo;
+        
+        public ScoochController(ScoochDBContext db, IEventRepo repo)
         {
             this.db = db;
+            this.repo = repo;
         }
 
         public IActionResult Index()
         {
-            return View(db.EventEntity);
+            var events = db.EventEntity.ToList(); 
+
+            return View(events);
         }
 
         public IActionResult Details(int id)
         {
-            EventRepo repo = new EventRepo(db);
-            EventEntity e = repo.Get(id);
+            EventRepo eventRepo = new EventRepo(db);
+            EventEntity e = eventRepo.Get(id);
             return View(e);
         }
 

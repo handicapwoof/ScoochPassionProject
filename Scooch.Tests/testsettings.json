@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=STEPHENSYRNYK\\SQLEXPRESS;Database=ScoochDB;Trusted_Connection=True;"
+  }
+}

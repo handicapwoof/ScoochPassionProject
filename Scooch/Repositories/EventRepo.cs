@@ -1,4 +1,6 @@
-﻿using Scooch.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Scooch.Interfaces;
+using Scooch.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace Scooch.Repositories
 {
-    public class EventRepo
+    public class EventRepo : IEventRepo
     {
         private ScoochDBContext db;
 
         public EventRepo(ScoochDBContext db)
         {
             this.db = db;
+        }
+
+        public List<EventEntity> EventList() {
+            return db.EventEntity.ToList();
         }
 
         public EventEntity Get(int id)
